@@ -1,5 +1,6 @@
-package com.github.suloginscene.jjwthelper;
+package com.github.suloginscene.test;
 
+import com.github.suloginscene.jjwthelper.JwtFactory;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

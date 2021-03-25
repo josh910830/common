@@ -2,7 +2,6 @@ package com.github.suloginscene.jwtconfig;
 
 import com.github.suloginscene.jjwthelper.JwtFactory;
 import com.github.suloginscene.jjwthelper.JwtReader;
-import com.github.suloginscene.jjwthelper.TestJwtFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -60,11 +59,6 @@ class JwtConfig {
     @Bean
     UserDetailsService userDetailsService() {
         return s -> null;
-    }
-
-    @Bean
-    TestJwtFactory testJwtFactory() {
-        return new TestJwtFactory(jwtFactory());
     }
 
 }
