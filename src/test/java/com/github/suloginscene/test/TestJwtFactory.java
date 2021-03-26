@@ -1,6 +1,6 @@
 package com.github.suloginscene.test;
 
-import com.github.suloginscene.jjwthelper.JwtFactory;
+import com.github.suloginscene.jwt.JwtFactory;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -23,6 +23,7 @@ public class TestJwtFactory {
     public TestJwtFactory(JwtFactory jwtFactory) {
         this.jwtFactory = jwtFactory;
     }
+
 
     public String valid(Long userId) {
         return jwtFactory.create(userId);

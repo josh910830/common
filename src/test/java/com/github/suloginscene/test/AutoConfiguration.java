@@ -1,6 +1,6 @@
 package com.github.suloginscene.test;
 
-import com.github.suloginscene.jjwthelper.JwtFactory;
+import com.github.suloginscene.jwt.JwtFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class TestConfig {
+public class AutoConfiguration {
 
     private final JwtFactory jwtFactory;
 

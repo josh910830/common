@@ -1,4 +1,4 @@
-package com.github.suloginscene.jwtconfig;
+package com.github.suloginscene.security;
 
 import lombok.Data;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

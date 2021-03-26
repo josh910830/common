@@ -1,4 +1,4 @@
-package com.github.suloginscene.jwtconfig;
+package com.github.suloginscene.property;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "jwt")
 @Getter @Setter
-class JwtProperties {
+public class JwtProperties {
 
     private String secret;
     private String urls;

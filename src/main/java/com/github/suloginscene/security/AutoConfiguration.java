@@ -1,7 +1,8 @@
-package com.github.suloginscene.jwtconfig;
+package com.github.suloginscene.security;
 
-import com.github.suloginscene.jjwthelper.JwtFactory;
-import com.github.suloginscene.jjwthelper.JwtReader;
+import com.github.suloginscene.jwt.JwtReader;
+import com.github.suloginscene.property.JwtProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,37 +12,22 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
-class JwtConfig {
+@RequiredArgsConstructor
+class AutoConfiguration {
 
-    @Bean
-    JwtProperties jwtProperties() {
-        return new JwtProperties();
-    }
+    private final JwtReader jwtReader;
+    private final JwtProperties jwtProperties;
 
-    @Bean
-    JwtFactory jwtFactory() {
-        return new JwtFactory(jwtProperties().getSecret());
-    }
-
-    @Bean
-    JwtReader jwtReader() {
-        return new JwtReader(jwtProperties().getSecret());
-    }
-
-    @Bean
-    JwtAuthenticator jwtAuthenticator() {
-        return new JwtAuthenticator(jwtReader());
-    }
 
     @Bean
     JwtSecurityFilter jwtSecurityFilter() {
-        return new JwtSecurityFilter(jwtAuthenticator());
+        return new JwtSecurityFilter(jwtReader);
     }
 
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        String[] urls = jwtProperties().getUrls().split(",");
+        String[] urls = jwtProperties.getUrls().split(",");
 
         CorsConfiguration configuration = new CorsConfiguration();
         for (String url : urls) {

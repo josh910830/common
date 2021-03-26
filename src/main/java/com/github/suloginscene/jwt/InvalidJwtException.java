@@ -1,11 +1,11 @@
-package com.github.suloginscene.jjwthelper;
+package com.github.suloginscene.jwt;
 
 import io.jsonwebtoken.JwtException;
 
 
 public class InvalidJwtException extends Exception {
 
-    public InvalidJwtException(Class<? extends JwtException> aClass) {
+    InvalidJwtException(Class<? extends JwtException> aClass) {
         super(aClass.getSimpleName());
     }
 

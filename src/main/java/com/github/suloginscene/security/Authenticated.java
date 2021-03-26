@@ -1,4 +1,4 @@
-package com.github.suloginscene.jwtconfig;
+package com.github.suloginscene.security;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

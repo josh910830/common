@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @RequiredArgsConstructor
-public class LibConfig {
+class AutoConfiguration {
 
     private final ApplicationEventPublisher applicationEventPublisher;
     private final Environment environment;

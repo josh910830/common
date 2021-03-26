@@ -1,4 +1,4 @@
-package com.github.suloginscene.jjwthelper;
+package com.github.suloginscene.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -6,7 +6,7 @@ import io.jsonwebtoken.Jwts;
 
 import java.util.Date;
 
-import static com.github.suloginscene.jjwthelper.Base64Utils.encoded;
+import static com.github.suloginscene.jwt.Base64Utils.encoded;
 import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 
 
@@ -18,10 +18,11 @@ public class JwtFactory {
     private final JwtBuilder jwtBuilder;
 
 
-    public JwtFactory(String secret) {
+    JwtFactory(String secret) {
         jwtBuilder = Jwts.builder()
                 .signWith(HS256, encoded(secret));
     }
+
 
     public String create(Long audience) {
         return create(audience, DEFAULT_EXPIRATION_MINUTES);
