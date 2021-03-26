@@ -1,6 +1,5 @@
 package com.github.suloginscene.security;
 
-import com.github.suloginscene.jwt.JwtReader;
 import com.github.suloginscene.property.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,14 +14,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 class AutoConfiguration {
 
-    private final JwtReader jwtReader;
     private final JwtProperties jwtProperties;
-
-
-    @Bean
-    JwtSecurityFilter jwtSecurityFilter() {
-        return new JwtSecurityFilter(jwtReader);
-    }
 
 
     @Bean

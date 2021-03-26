@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@Component
 @RequiredArgsConstructor
 @Slf4j
 public class JwtSecurityFilter extends GenericFilterBean {
@@ -28,55 +26,53 @@ public class JwtSecurityFilter extends GenericFilterBean {
 
 
     @Override
-    public void doFilter(ServletRequest req,
-                         ServletResponse res,
-                         FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        doFilter((HttpServletRequest) req, (HttpServletResponse) res, chain);
+    }
+
+    private void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         try {
-            String jwt = getXAuthToken(req);
-            authenticate(jwt);
+            authenticate(req);
             chain.doFilter(req, res);
-        } catch (InvalidJwtException e) {
-            log.warn(e.getMessage());
-            printForbidden(res, e.getMessage());
+        } catch (JwtNotExistsException | InvalidJwtException e) {
+            logUnauthorized(req, e);
+            sendUnauthorized(res, e);
         }
     }
 
-    private String getXAuthToken(ServletRequest servletReq) {
-        HttpServletRequest httpReq = (HttpServletRequest) servletReq;
-        return httpReq.getHeader("X-AUTH-TOKEN");
-    }
 
-    private void authenticate(String jwt) throws InvalidJwtException {
-        if (isExistent(jwt)) {
-            Authentication authentication = toAuthentication(jwt);
-            setAuthentication(authentication);
-        }
-    }
-
-    // TODO
-    private boolean isExistent(String jwt) {
-        return jwt != null && !jwt.isBlank();
-    }
-
-    private Authentication toAuthentication(String token) throws InvalidJwtException {
-        String audience = jwtReader.getAudience(token);
+    private void authenticate(HttpServletRequest req) throws JwtNotExistsException, InvalidJwtException {
+        String jwt = getJwt(req);
+        String audience = jwtReader.getAudience(jwt);
         Principal principal = Principal.of(audience);
-        return principal.token();
-    }
-
-    private void setAuthentication(Authentication authentication) {
+        Authentication authentication = principal.token();
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-
-    private void printForbidden(ServletResponse servletRes, String message) {
-        HttpServletResponse httpRes = (HttpServletResponse) servletRes;
-        httpRes.setStatus(403);
-        printMessage(httpRes, message);
+    private String getJwt(HttpServletRequest req) throws JwtNotExistsException {
+        String jwt = req.getHeader("X-AUTH-TOKEN");
+        if (jwt == null || jwt.isBlank()) {
+            throw new JwtNotExistsException();
+        }
+        return jwt;
     }
 
-    private void printMessage(HttpServletResponse httpRes, String message) {
-        try (PrintWriter writer = httpRes.getWriter()) {
+
+    private void logUnauthorized(HttpServletRequest req, Exception e) {
+        String ip = req.getRemoteAddr();
+        int port = req.getRemotePort();
+        String url = req.getRequestURI();
+
+        log.warn("{}:{} try to access {}, but {}", ip, port, url, e.getMessage());
+    }
+
+    private void sendUnauthorized(HttpServletResponse res, Exception e) {
+        res.setStatus(401);
+        printMessage(res, e.getMessage());
+    }
+
+    private void printMessage(HttpServletResponse res, String message) {
+        try (PrintWriter writer = res.getWriter()) {
             writer.print(message);
         } catch (IOException e) {
             log.error("on print http response - {}", e.getMessage());

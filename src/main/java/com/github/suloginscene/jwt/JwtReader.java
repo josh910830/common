@@ -27,7 +27,21 @@ public class JwtReader {
         try {
             return jwtParser.parseClaimsJws(jwt).getBody();
         } catch (JwtException e) {
-            throw new InvalidJwtException(e.getClass());
+            String message = selectMessageByClass(e);
+            throw new InvalidJwtException(message);
+        }
+    }
+
+    private String selectMessageByClass(JwtException e) {
+        switch (e.getClass().getSimpleName()) {
+            case "ExpiredJwtException":
+                return "Expired Jwt";
+            case "SignatureException":
+                return "Invalid Signature";
+            case "MalformedJwtException":
+                return "Malformed Jwt";
+            default:
+                return "Invalid Jwt";
         }
     }
 
