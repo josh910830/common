@@ -1,4 +1,4 @@
-package com.github.suloginscene.lib.profile;
+package com.github.suloginscene.profile;
 
 
 public class Profiles {

@@ -1,4 +1,4 @@
-package com.github.suloginscene.lib.time;
+package com.github.suloginscene.time;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-import static com.github.suloginscene.lib.time.DateTimeFormatters.DATE_TIME;
+import static com.github.suloginscene.time.DateTimeFormatters.DATE_TIME;
 
 
 @EqualsAndHashCode @ToString

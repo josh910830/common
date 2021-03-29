@@ -1,4 +1,4 @@
-package com.github.suloginscene.lib.exception;
+package com.github.suloginscene.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

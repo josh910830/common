@@ -1,4 +1,4 @@
-package com.github.suloginscene.lib.validation;
+package com.github.suloginscene.validation;
 
 import lombok.NonNull;
 import org.springframework.validation.Errors;

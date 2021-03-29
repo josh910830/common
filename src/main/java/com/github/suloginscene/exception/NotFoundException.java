@@ -1,4 +1,4 @@
-package com.github.suloginscene.lib.exception;
+package com.github.suloginscene.exception;
 
 
 public class NotFoundException extends RuntimeException {

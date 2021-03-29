@@ -1,4 +1,4 @@
-package com.github.suloginscene.lib.time;
+package com.github.suloginscene.time;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import static com.github.suloginscene.lib.time.DateTimeFormatters.DATE;
+import static com.github.suloginscene.time.DateTimeFormatters.DATE;
 
 
 @EqualsAndHashCode @ToString

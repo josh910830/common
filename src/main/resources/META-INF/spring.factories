@@ -1,5 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.suloginscene.lib.AutoConfiguration,\
+  com.github.suloginscene.event.AutoConfiguration,\
+  com.github.suloginscene.exception.AutoConfiguration,\
+  com.github.suloginscene.profile.AutoConfiguration,\
   com.github.suloginscene.property.AutoConfiguration,\
   com.github.suloginscene.jwt.AutoConfiguration,\
   com.github.suloginscene.security.AutoConfiguration,\

@@ -1,4 +1,4 @@
-package com.github.suloginscene.lib.time;
+package com.github.suloginscene.time;
 
 import java.time.format.DateTimeFormatter;
 
