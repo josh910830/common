@@ -2,8 +2,12 @@ package com.github.suloginscene.security;
 
 import lombok.Data;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import static java.util.Collections.emptySet;
+import java.util.Set;
+
+import static com.github.suloginscene.security.Authorities.MEMBER;
 
 
 @Data
@@ -22,8 +26,9 @@ class Principal {
     }
 
 
-    UsernamePasswordAuthenticationToken token() {
-        return new UsernamePasswordAuthenticationToken(this, "", emptySet());
+    Authentication authentication() {
+        return new UsernamePasswordAuthenticationToken(
+                this, "", Set.of(new SimpleGrantedAuthority(MEMBER)));
     }
 
 }
