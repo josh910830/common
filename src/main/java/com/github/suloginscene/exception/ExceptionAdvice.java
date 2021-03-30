@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -93,6 +94,21 @@ public class ExceptionAdvice {
     private boolean isRequiredRequestBodyMissing(HttpMessageNotReadableException e) {
         String message = e.getMessage();
         return message != null && message.startsWith("Required request body is missing");
+    }
+
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<?> on(MissingServletRequestParameterException e) {
+        if (isRequiredMissing(e)) {
+            return on(new RequestException("required parameter is missing"));
+        }
+
+        return on(new InternalException("missing servlet request param while required parameter is present"));
+    }
+
+    private boolean isRequiredMissing(MissingServletRequestParameterException e) {
+        String message = e.getMessage();
+        return message != null && message.startsWith("Required");
     }
 
 
