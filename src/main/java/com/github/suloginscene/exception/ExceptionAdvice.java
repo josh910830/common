@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import static java.util.stream.Collectors.joining;
+import static org.springframework.http.HttpStatus.FAILED_DEPENDENCY;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -37,6 +38,13 @@ public class ExceptionAdvice {
         log.warn(toLogString(e));
         return ResponseEntity
                 .status(NOT_FOUND).build();
+    }
+
+    @ExceptionHandler(ExternalException.class)
+    public ResponseEntity<Void> on(ExternalException e) {
+        log.error(toLogString(e));
+        return ResponseEntity
+                .status(FAILED_DEPENDENCY).build();
     }
 
     @ExceptionHandler(InternalException.class)
