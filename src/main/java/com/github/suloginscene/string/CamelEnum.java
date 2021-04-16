@@ -1,11 +1,9 @@
-package com.github.suloginscene.enumeration;
+package com.github.suloginscene.string;
 
 
 public interface CamelEnum {
 
-
     String name();
-
 
     default String toCamel() {
         String[] lowerTokens = name().toLowerCase().split("_");
