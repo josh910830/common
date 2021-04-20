@@ -12,4 +12,9 @@ class AutoConfiguration {
         return new JwtProperties();
     }
 
+    @Bean
+    AppProperties appProperties() {
+        return new AppProperties();
+    }
+
 }
