@@ -61,6 +61,11 @@ public class RequestBuilder {
     }
 
 
+    public RequestBuilder body(String body) {
+        return new RequestBuilder(
+                builder.content(body));
+    }
+
     public RequestBuilder json(Object object) throws JsonProcessingException {
         String json = OBJECT_MAPPER.writeValueAsString(object);
         return new RequestBuilder(
