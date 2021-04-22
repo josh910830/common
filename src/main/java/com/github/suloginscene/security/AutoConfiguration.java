@@ -1,6 +1,6 @@
 package com.github.suloginscene.security;
 
-import com.github.suloginscene.property.JwtProperties;
+import com.github.suloginscene.property.SecurityProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,16 +15,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 class AutoConfiguration {
 
-    private final JwtProperties jwtProperties;
+    private final SecurityProperties securityProperties;
 
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        String[] urls = jwtProperties.getUrls().split(",");
+        String[] origins = securityProperties.getOrigins().split(",");
 
         CorsConfiguration configuration = new CorsConfiguration();
-        for (String url : urls) {
-            configuration.addAllowedOrigin(url);
+        for (String origin : origins) {
+            configuration.addAllowedOrigin(origin);
         }
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");

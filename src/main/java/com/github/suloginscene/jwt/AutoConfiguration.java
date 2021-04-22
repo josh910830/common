@@ -1,6 +1,6 @@
 package com.github.suloginscene.jwt;
 
-import com.github.suloginscene.property.JwtProperties;
+import com.github.suloginscene.property.SecurityProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,17 +10,17 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 class AutoConfiguration {
 
-    private final JwtProperties jwtProperties;
+    private final SecurityProperties securityProperties;
 
 
     @Bean
     JwtFactory jwtFactory() {
-        return new JwtFactory(jwtProperties.getSecret());
+        return new JwtFactory(securityProperties);
     }
 
     @Bean
     JwtReader jwtReader() {
-        return new JwtReader(jwtProperties.getSecret());
+        return new JwtReader(securityProperties);
     }
 
 }

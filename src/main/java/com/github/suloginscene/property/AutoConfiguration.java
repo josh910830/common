@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 class AutoConfiguration {
 
     @Bean
-    JwtProperties jwtProperties() {
-        return new JwtProperties();
+    SecurityProperties securityProperties() {
+        return new SecurityProperties();
     }
 
     @Bean

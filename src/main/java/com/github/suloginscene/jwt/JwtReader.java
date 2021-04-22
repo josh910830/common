@@ -1,5 +1,6 @@
 package com.github.suloginscene.jwt;
 
+import com.github.suloginscene.property.SecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
@@ -13,9 +14,8 @@ public class JwtReader {
     private final JwtParser jwtParser;
 
 
-    JwtReader(String secret) {
-        jwtParser = Jwts.parser()
-                .setSigningKey(encoded(secret));
+    JwtReader(SecurityProperties securityProperties) {
+        jwtParser = Jwts.parser().setSigningKey(encoded(securityProperties.getSecret()));
     }
 
 
