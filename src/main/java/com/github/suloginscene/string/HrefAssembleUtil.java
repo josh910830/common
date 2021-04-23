@@ -1,5 +1,7 @@
 package com.github.suloginscene.string;
 
+import com.github.suloginscene.exception.InternalException;
+
 
 public class HrefAssembleUtil {
 
@@ -11,6 +13,7 @@ public class HrefAssembleUtil {
     }
 
     public static String href(String path) {
+        if (address == null) throw new InternalException("address is unset");
         return address + path;
     }
 
