@@ -36,8 +36,8 @@ public class JwtSecurityFilter extends GenericFilterBean {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (JwtNotExistsException | InvalidJwtException e) {
             String message = e.getMessage();
-            Authentication temporal = new TemporalAuthentication(message);
-            SecurityContextHolder.getContext().setAuthentication(temporal);
+            Authentication invalid = new InvalidAuthentication(message);
+            SecurityContextHolder.getContext().setAuthentication(invalid);
         }
     }
 

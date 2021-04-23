@@ -6,14 +6,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import static java.util.Collections.emptySet;
 
 
-class TemporalAuthentication extends UsernamePasswordAuthenticationToken {
+class InvalidAuthentication extends UsernamePasswordAuthenticationToken {
 
     @Getter
     private final String message;
 
 
-    TemporalAuthentication(String message) {
-        super("temporal", "", emptySet());
+    InvalidAuthentication(String message) {
+        super("invalid", "", emptySet());
         this.message = message;
     }
 
