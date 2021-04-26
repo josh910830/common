@@ -6,10 +6,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
+import static com.github.suloginscene.profile.Profiles.LOCAL;
+import static com.github.suloginscene.profile.Profiles.PROD;
 import static com.github.suloginscene.profile.Profiles.TEST;
 
 
@@ -18,17 +18,23 @@ import static com.github.suloginscene.profile.Profiles.TEST;
 public class ProfileChecker {
 
     private final Environment environment;
-    private final Set<String> activeProfiles = new HashSet<>();
+
+    private String activeProfile;
 
 
     @PostConstruct
     void readActiveProfiles() {
-        activeProfiles.addAll(Arrays.asList(environment.getActiveProfiles()));
+        String[] activeProfiles = environment.getActiveProfiles();
+        if (activeProfiles.length == 0) throw new InternalException("profile is unset");
+        if (activeProfiles.length > 1) throw new InternalException("profile is not unique");
+
+        activeProfile = activeProfiles[0];
+        if (!List.of(LOCAL, TEST, PROD).contains(activeProfile)) throw new InternalException("profile is unknown");
     }
 
 
     public void checkTest() {
-        if (!activeProfiles.contains(TEST)) {
+        if (!activeProfile.equals(TEST)) {
             throw new InternalException("profile is not test");
         }
     }
