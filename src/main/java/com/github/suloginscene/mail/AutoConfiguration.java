@@ -12,7 +12,7 @@ import static com.github.suloginscene.profile.Profiles.TEST;
 
 
 @Configuration
-public class AutoConfiguration {
+class AutoConfiguration {
 
     @Configuration
     @Profile({TEST, LOCAL})
