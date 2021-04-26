@@ -9,6 +9,6 @@ public class DateTimeFormatters {
     public static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static final String DATE_REGEXP = "\\d\\d\\d\\d-\\d\\d-\\d\\d";
-    public static final String DATE_MESSAGE = "숫자 yyyy-MM-dd 형식";
+    public static final String DATE_MESSAGE = "날짜는 yyyy-MM-dd 형식의 숫자로 이루어져야 합니다.";
 
 }

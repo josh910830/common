@@ -23,7 +23,7 @@ public abstract class AbstractValidator implements Validator {
     }
 
     private void reject(Errors errors) {
-        errors.rejectValue(targetField(), ERROR_CODE, rejectedReason());
+        errors.rejectValue(targetField(), ERROR_CODE, rejectMessage());
     }
 
 
@@ -31,7 +31,7 @@ public abstract class AbstractValidator implements Validator {
 
     protected abstract String targetField();
 
-    protected abstract String rejectedReason();
+    protected abstract String rejectMessage();
 
     protected abstract boolean isValid(Object target);
 

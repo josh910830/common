@@ -8,7 +8,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @AllArgsConstructor(access = PRIVATE)
-public class ErrorResponse {
+class ErrorResponse {
 
     private final String error;
     private final String errorDescription;

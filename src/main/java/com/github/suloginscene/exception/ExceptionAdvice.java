@@ -3,6 +3,7 @@ package com.github.suloginscene.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -15,7 +16,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionAdvice {
+class ExceptionAdvice {
 
     @ExceptionHandler(RequestException.class)
     public ResponseEntity<ErrorResponse> on(RequestException e) {
@@ -60,15 +61,16 @@ public class ExceptionAdvice {
 
 
     @ExceptionHandler(BindException.class)
-    public ResponseEntity<ErrorResponse> on(BindException e) {
-        String message = joinMappedFiledErrorSentences(e);
-        return on(new RequestException(message));
+    public ResponseEntity<ErrorResponse> on(BindException be) {
+        RequestException re = toRequestException(be);
+        return on(re);
     }
 
-    private String joinMappedFiledErrorSentences(BindException e) {
-        return e.getBindingResult().getFieldErrors().stream()
-                .map(f -> f.getField() + "=" + f.getRejectedValue())
+    private RequestException toRequestException(BindException e) {
+        String message = e.getBindingResult().getFieldErrors().stream()
+                .map(FieldError::getDefaultMessage)
                 .collect(joining(","));
+        return new RequestBindException(message);
     }
 
 }

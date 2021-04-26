@@ -1,9 +1,9 @@
 package com.github.suloginscene.exception;
 
 
-public class RequestException extends RuntimeException {
+public abstract class RequestException extends RuntimeException {
 
-    public RequestException(String message) {
+    protected RequestException(String message) {
         super(message);
     }
 
