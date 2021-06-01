@@ -19,34 +19,24 @@ public class JwtComponentTest {
     @Test
     @DisplayName("정상")
     void onSuccess() throws InvalidJwtException {
-        SecurityProperties securityProperties = new SecurityProperties();
-        securityProperties.setSecret("secret");
-        securityProperties.setExpMin(30);
+        SecurityProperties secProp = securityProperties("secret", 30);
+        jwtFactory = new JwtFactory(secProp);
+        jwtReader = new JwtReader(secProp);
 
-        jwtFactory = new JwtFactory(securityProperties);
-        jwtReader = new JwtReader(securityProperties);
-
-        Long id = 1L;
-
-        String jwt = jwtFactory.create(id);
+        String jwt = jwtFactory.create(1L);
         String audience = jwtReader.getAudience(jwt);
 
-        assertThat(audience).isEqualTo(id.toString());
+        assertThat(audience).isEqualTo("1");
     }
 
     @Test
     @DisplayName("만료 - 예외")
     void onExpired() {
-        SecurityProperties securityProperties = new SecurityProperties();
-        securityProperties.setSecret("secret");
-        securityProperties.setExpMin(0);
+        SecurityProperties secProp = securityProperties("secret", 0);
+        jwtFactory = new JwtFactory(secProp);
+        jwtReader = new JwtReader(secProp);
 
-        jwtFactory = new JwtFactory(securityProperties);
-        jwtReader = new JwtReader(securityProperties);
-
-        Long id = 1L;
-
-        String jwt = jwtFactory.create(id);
+        String jwt = jwtFactory.create(1L);
         Executable reading = () -> jwtReader.getAudience(jwt);
 
         String message = assertThrows(InvalidJwtException.class, reading).getMessage();
@@ -56,19 +46,10 @@ public class JwtComponentTest {
     @Test
     @DisplayName("서명 - 예외")
     void onInvalid() {
-        SecurityProperties prop1 = new SecurityProperties();
-        prop1.setSecret("secret1");
-        prop1.setExpMin(30);
-        jwtFactory = new JwtFactory(prop1);
+        jwtFactory = new JwtFactory(securityProperties("secret1", 30));
+        jwtReader = new JwtReader(securityProperties("secret2", 30));
 
-        SecurityProperties prop2 = new SecurityProperties();
-        prop2.setSecret("secret2");
-        prop2.setExpMin(30);
-        jwtReader = new JwtReader(prop2);
-
-        Long id = 1L;
-
-        String jwt = jwtFactory.create(id);
+        String jwt = jwtFactory.create(1L);
         Executable reading = () -> jwtReader.getAudience(jwt);
 
         String message = assertThrows(InvalidJwtException.class, reading).getMessage();
@@ -78,17 +59,21 @@ public class JwtComponentTest {
     @Test
     @DisplayName("형식 - 예외")
     void onMalformed() {
+        jwtReader = new JwtReader(securityProperties("secret", 30));
+
         String jwt = "malformed";
-
-        SecurityProperties securityProperties = new SecurityProperties();
-        securityProperties.setSecret("secret");
-        securityProperties.setExpMin(30);
-        jwtReader = new JwtReader(securityProperties);
-
         Executable reading = () -> jwtReader.getAudience(jwt);
 
         String message = assertThrows(InvalidJwtException.class, reading).getMessage();
         assertThat(message).isEqualTo("Malformed Jwt");
+    }
+
+
+    private SecurityProperties securityProperties(String secret, int expMin) {
+        SecurityProperties securityProperties = new SecurityProperties();
+        securityProperties.setSecret(secret);
+        securityProperties.setExpMin(expMin);
+        return securityProperties;
     }
 
 }
