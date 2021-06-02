@@ -5,10 +5,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import org.springframework.stereotype.Component;
 
 import static com.github.suloginscene.jwt.Base64Utils.encoded;
 
 
+@Component
 public class JwtReader {
 
     private final JwtParser jwtParser;

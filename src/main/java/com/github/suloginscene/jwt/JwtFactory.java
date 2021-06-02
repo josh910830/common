@@ -4,6 +4,7 @@ import com.github.suloginscene.property.SecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import static com.github.suloginscene.jwt.Base64Utils.encoded;
 import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 
 
+@Component
 public class JwtFactory {
 
     private static final long MINUTE = 60 * 1000L;

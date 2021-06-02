@@ -1,15 +1,20 @@
 package com.github.suloginscene.mail;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import static com.github.suloginscene.profile.Profiles.PROD;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 
+@Component
+@Profile(PROD)
 @RequiredArgsConstructor
 class EMailer extends Mailer {
 

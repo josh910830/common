@@ -4,6 +4,7 @@ import com.github.suloginscene.jwt.JwtFactory;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 
 
+@Component
 public class TestJwtFactory {
 
     private static final long MINUTE = 60 * 1000L;
