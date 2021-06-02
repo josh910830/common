@@ -21,7 +21,7 @@ public class JwtFactory {
     private final int expMin;
 
 
-    JwtFactory(SecurityProperties securityProperties) {
+    public JwtFactory(SecurityProperties securityProperties) {
         jwtBuilder = Jwts.builder().signWith(HS256, encoded(securityProperties.getSecret()));
         expMin = securityProperties.getExpMin();
     }

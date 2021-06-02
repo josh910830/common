@@ -18,7 +18,7 @@ public class JwtReader {
     private final JwtParser jwtParser;
 
 
-    JwtReader(SecurityProperties securityProperties) {
+    public JwtReader(SecurityProperties securityProperties) {
         jwtParser = Jwts.parser().setSigningKey(encoded(securityProperties.getSecret()));
     }
 
