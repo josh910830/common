@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 @Getter @Setter
 public class AppProperties {
 
-    private String address;
+    private String address = "http://localhost:8080";
 
 }

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Getter @Setter
 public class SecurityProperties {
 
-    private String secret;
-    private String origins;
-    private int expMin;
-    private int refreshExpDay;
+    private String secret = "secret";
+    private String origins = "http://localhost:3000,https://frontend.com";
+    private int expMin = 30;
+    private int refreshExpDay = 14;
 
 }
