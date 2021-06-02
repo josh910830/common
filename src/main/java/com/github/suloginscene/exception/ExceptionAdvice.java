@@ -18,6 +18,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Slf4j
 class ExceptionAdvice {
 
+    // TODO mail on critical exception
+
     @ExceptionHandler(RequestException.class)
     public ResponseEntity<ErrorResponse> on(RequestException e) {
         log.warn(toLogString(e));
