@@ -1,8 +1,12 @@
 package com.github.suloginscene.string;
 
 import com.github.suloginscene.exception.InternalException;
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PRIVATE;
 
 
+@NoArgsConstructor(access = PRIVATE)
 public class HrefAssembleUtil {
 
     private static String address;

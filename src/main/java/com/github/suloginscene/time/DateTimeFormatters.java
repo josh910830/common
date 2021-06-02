@@ -1,8 +1,13 @@
 package com.github.suloginscene.time;
 
+import lombok.NoArgsConstructor;
+
 import java.time.format.DateTimeFormatter;
 
+import static lombok.AccessLevel.PRIVATE;
 
+
+@NoArgsConstructor(access = PRIVATE)
 public class DateTimeFormatters {
 
     public static final DateTimeFormatter DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

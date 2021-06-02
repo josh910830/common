@@ -28,7 +28,9 @@ class TimeRangeTest {
         assertThat(timeRange.endString()).isEqualTo(end.format(formatter));
 
         assertThat(timeRange.contains(before)).isFalse();
+        assertThat(timeRange.contains(begin)).isTrue();
         assertThat(timeRange.contains(center)).isTrue();
+        assertThat(timeRange.contains(end)).isFalse();
         assertThat(timeRange.contains(after)).isFalse();
     }
 

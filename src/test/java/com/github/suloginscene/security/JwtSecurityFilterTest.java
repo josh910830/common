@@ -55,12 +55,26 @@ class JwtSecurityFilterTest {
         jwtSecurityFilter.doFilter(req, res, filters);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        assertThat(authentication.getPrincipal()).isEqualTo(Principal.of(memberId.toString()));
+        Object principal = authentication.getPrincipal();
+        assertThat(principal).isInstanceOf(Principal.class);
+        assertThat(((Principal) principal).getMemberId()).isEqualTo(memberId);
     }
 
     @Test
     @DisplayName("JWT 없음")
     void filter_onNotExists_authAsInvalid() throws ServletException, IOException {
+        jwtSecurityFilter.doFilter(req, res, filters);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        assertThat(authentication.getPrincipal()).isEqualTo("invalid");
+        assertThat(authentication.getClass()).isEqualTo(InvalidAuthentication.class);
+        assertThat(((InvalidAuthentication) authentication).getMessage()).isEqualTo("Jwt Not Exists");
+    }
+
+    @Test
+    @DisplayName("JWT 공백")
+    void filter_onBlank_authAsInvalid() throws ServletException, IOException {
+        req.addHeader("X-AUTH-TOKEN", " ");
         jwtSecurityFilter.doFilter(req, res, filters);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

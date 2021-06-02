@@ -1,6 +1,5 @@
 package com.github.suloginscene.validation;
 
-import lombok.NonNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -11,12 +10,12 @@ public abstract class AbstractValidator implements Validator {
 
 
     @Override
-    public boolean supports(@NonNull Class<?> clazz) {
+    public boolean supports(Class<?> clazz) {
         return targetClass().isAssignableFrom(clazz);
     }
 
     @Override
-    public void validate(@NonNull Object target, @NonNull Errors errors) {
+    public void validate(Object target, Errors errors) {
         if (!isValid(target)) {
             reject(errors);
         }

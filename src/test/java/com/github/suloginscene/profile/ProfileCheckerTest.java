@@ -48,6 +48,14 @@ class ProfileCheckerTest {
     }
 
     @Test
+    @DisplayName("초기화(미설정) - 예외")
+    void init_unset() {
+        Environment env = mockEnv();
+        Executable initializing = constructWithPostConstruct(env);
+        assertThrows(InternalException.class, initializing);
+    }
+
+    @Test
     @DisplayName("초기화(복수) - 예외")
     void init_multi() {
         Environment env = mockEnv("local", "prod");
