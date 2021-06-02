@@ -2,9 +2,11 @@ package com.github.suloginscene.jwt;
 
 import com.github.suloginscene.property.SecurityProperties;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.stereotype.Component;
 
 import static com.github.suloginscene.jwt.Base64Utils.encoded;
@@ -35,16 +37,10 @@ public class JwtReader {
     }
 
     private String selectMessageByClass(JwtException e) {
-        switch (e.getClass().getSimpleName()) {
-            case "ExpiredJwtException":
-                return "Expired Jwt";
-            case "SignatureException":
-                return "Invalid Signature";
-            case "MalformedJwtException":
-                return "Malformed Jwt";
-            default:
-                return "Invalid Jwt";
-        }
+        Class<? extends JwtException> eClass = e.getClass();
+        if (eClass == ExpiredJwtException.class) return "Expired Jwt";
+        if (eClass == SignatureException.class) return "Invalid Signature";
+        return "Malformed Jwt";
     }
 
 }

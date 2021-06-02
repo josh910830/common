@@ -1,8 +1,6 @@
 package com.github.suloginscene.time;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,7 +9,6 @@ import java.time.temporal.ChronoUnit;
 import static com.github.suloginscene.time.DateTimeFormatters.DATE;
 
 
-@EqualsAndHashCode @ToString
 public class DateRange {
 
     @Getter
