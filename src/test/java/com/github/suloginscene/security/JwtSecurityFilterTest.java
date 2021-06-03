@@ -55,9 +55,7 @@ class JwtSecurityFilterTest {
         jwtSecurityFilter.doFilter(req, res, filters);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        assertThat(principal).isInstanceOf(Principal.class);
-        assertThat(((Principal) principal).getMemberId()).isEqualTo(memberId);
+        assertThat(authentication.getPrincipal()).isEqualTo(Principal.of(memberId.toString()));
     }
 
     @Test

@@ -1,25 +1,21 @@
 package com.github.suloginscene.time;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 import static com.github.suloginscene.time.DateTimeFormatters.DATE_TIME;
+import static lombok.AccessLevel.PRIVATE;
 
 
+@Data
+@RequiredArgsConstructor(access = PRIVATE)
 public class TimeRange {
 
-    @Getter
     private final LocalDateTime begin;
-
-    @Getter
     private final LocalDateTime end;
 
-
-    private TimeRange(LocalDateTime begin, LocalDateTime end) {
-        this.begin = begin;
-        this.end = end;
-    }
 
     public static TimeRange of(LocalDateTime begin, LocalDateTime end) {
         return new TimeRange(begin, end);

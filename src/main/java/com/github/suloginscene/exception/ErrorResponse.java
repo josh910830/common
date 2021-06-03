@@ -1,18 +1,16 @@
 package com.github.suloginscene.exception;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 import static lombok.AccessLevel.PRIVATE;
 
 
+@Data
 @AllArgsConstructor(access = PRIVATE)
 class ErrorResponse {
 
-    @Getter
     private final String error;
-
-    @Getter
     private final String errorDescription;
 
 

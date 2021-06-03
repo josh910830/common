@@ -1,11 +1,9 @@
 package com.github.suloginscene.mail;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
 
-@Getter
-@RequiredArgsConstructor
+@Data
 public class MailMessage {
 
     private final String recipient;

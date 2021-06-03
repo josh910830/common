@@ -1,27 +1,23 @@
 package com.github.suloginscene.time;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import static com.github.suloginscene.time.DateTimeFormatters.DATE;
+import static lombok.AccessLevel.PRIVATE;
 
 
+@Data
+@RequiredArgsConstructor(access = PRIVATE)
 public class DateRange {
 
-    @Getter
     private final LocalDate begin;
-
-    @Getter
     private final LocalDate end;
 
-
-    private DateRange(LocalDate begin, LocalDate end) {
-        this.begin = begin;
-        this.end = end;
-    }
 
     public static DateRange of(LocalDate begin, LocalDate exclusiveEnd) {
         return new DateRange(begin, exclusiveEnd);

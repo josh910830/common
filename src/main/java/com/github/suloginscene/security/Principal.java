@@ -1,6 +1,6 @@
 package com.github.suloginscene.security;
 
-import lombok.Getter;
+import lombok.Data;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,7 +10,7 @@ import java.util.Set;
 import static com.github.suloginscene.security.Authorities.MEMBER;
 
 
-@Getter
+@Data
 class Principal {
 
     private final Long memberId;
