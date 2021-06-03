@@ -1,9 +1,12 @@
 ## 공통 컴포넌트
 
+[![Build Status](https://travis-ci.com/suloginscene/common.svg?branch=master)](https://travis-ci.com/suloginscene/common)
+[![Coverage Status](https://coveralls.io/repos/github/suloginscene/common/badge.svg?branch=master)](https://coveralls.io/github/suloginscene/common?branch=master)
+
 [회원서버](https://github.com/suloginscene/member-server) 및
 [회계서버](https://github.com/suloginscene/accounting-server) 가 의존하는 공통 컴포넌트입니다.
 
-스프링 자동설정으로 빈을 등록합니다.  
+컴포넌트 스캔을 활용한 스프링 자동설정으로 빈을 등록합니다.  
 로컬 및 CI 환경에서의 설치는 (git clone 후) mvn install로 이루어집니다.  
 운영 환경의 경우, 클라이언트 컴포넌트(서버 애플리케이션)의 도커 이미지에 포함됩니다.
 
