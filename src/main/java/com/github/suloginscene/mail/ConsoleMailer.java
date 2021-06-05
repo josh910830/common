@@ -11,7 +11,7 @@ import static com.github.suloginscene.profile.Profiles.TEST;
 @Component
 @Profile({TEST, LOCAL})
 @Slf4j
-class ConsoleMailer extends Mailer {
+public class ConsoleMailer extends Mailer {
 
     @Override
     protected void doSend(MailMessage message) {

@@ -1,5 +1,6 @@
 package com.github.suloginscene.exception;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -16,9 +17,11 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 @Slf4j
+@RequiredArgsConstructor
 class ExceptionAdvice {
 
-    // TODO mail on critical exception
+    private final ErrorNotifier errorNotifier;
+
 
     @ExceptionHandler(RequestException.class)
     public ResponseEntity<ErrorResponse> on(RequestException e) {
@@ -50,7 +53,9 @@ class ExceptionAdvice {
 
     @ExceptionHandler(InternalException.class)
     public ResponseEntity<Void> on(InternalException e) {
-        log.error(toLogString(e));
+        String errorLog = toLogString(e);
+        log.error(errorLog);
+        errorNotifier.sendMailToDeveloper(errorLog);
         return ResponseEntity
                 .status(INTERNAL_SERVER_ERROR).build();
     }

@@ -12,5 +12,6 @@ import org.springframework.stereotype.Component;
 public class AppProperties {
 
     private String address = "http://localhost:8080";
+    private String developer = "suloginscene@email.com";
 
 }

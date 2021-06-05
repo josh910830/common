@@ -1,5 +1,7 @@
 package com.github.suloginscene.exception;
 
+import com.github.suloginscene.mail.ConsoleMailer;
+import com.github.suloginscene.property.AppProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,8 +13,11 @@ import org.springframework.validation.FieldError;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.FAILED_DEPENDENCY;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -25,10 +30,13 @@ class ExceptionAdviceTest {
 
     ExceptionAdvice exceptionAdvice;
 
+    ErrorNotifier errorNotifier;
+
 
     @BeforeEach
     void setup() {
-        exceptionAdvice = new ExceptionAdvice();
+        errorNotifier = spy(new ErrorNotifier(new ConsoleMailer(), new AppProperties()));
+        exceptionAdvice = new ExceptionAdvice(errorNotifier);
     }
 
 
@@ -95,13 +103,14 @@ class ExceptionAdviceTest {
     }
 
     @Test
-    @DisplayName("Internal 예외 - 500")
-    void onInternalException_returns500() {
+    @DisplayName("Internal 예외 - 500 & 메일")
+    void onInternalException_returns500AndSendMail() {
         InternalException internalException = new InternalException("reason");
 
         ResponseEntity<Void> response = exceptionAdvice.on(internalException);
 
         assertThat(response.getStatusCode()).isEqualTo(INTERNAL_SERVER_ERROR);
+        then(errorNotifier).should().sendMailToDeveloper(any());
     }
 
 }
